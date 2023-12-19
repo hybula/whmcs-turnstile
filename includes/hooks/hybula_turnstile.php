@@ -1,4 +1,18 @@
 <?php
+/**
+ * Hybula WHMCS Turnstile Hook
+ *
+ * LICENSE: Licensed under the Apache License, Version 2.0 (the "License")
+ * and the Commons Clause Restriction; you may not use this file except in
+ * compliance with the License.
+ *
+ * @category   whmcs
+ * @package    whmcs-turnstile
+ * @author     Hybula Development <development@hybula.com>
+ * @copyright  2023 Hybula B.V.
+ * @license    https://github.com/hybula/whmcs-turnstile/blob/main/LICENSE.md
+ * @link       https://github.com/hybula/whmcs-turnstile
+ */
 
 declare(strict_types=1);
 
