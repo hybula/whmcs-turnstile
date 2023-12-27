@@ -20,13 +20,13 @@ if (!defined('WHMCS')) {
     die('This file cannot be accessed directly!');
 }
 
-if ((($_SERVER['SCRIPT_NAME'] == '/index.php' && $_GET['rp'] == '/login' && in_array('login', hybulaTurnstileLocations)) ||
-        ($_SERVER['SCRIPT_NAME'] == '/register.php' && in_array('register', hybulaTurnstileLocations)) ||
-        ($_SERVER['SCRIPT_NAME'] == '/contact.php' && in_array('contact', hybulaTurnstileLocations)) ||
-        ($_SERVER['SCRIPT_NAME'] == '/submitticket.php' && in_array('ticket', hybulaTurnstileLocations)) ||
-        ($_SERVER['SCRIPT_NAME'] == '/cart.php' && $_GET['a'] == 'checkout' && in_array('checkout', hybulaTurnstileLocations))) && hybulaTurnstileEnabled) {
-
-    if (!empty($_POST)) {
+if (!empty($_POST)) {
+    $pageFile = basename($_SERVER['SCRIPT_NAME'], '.php');
+    if ((($pageFile == 'index' && isset($_POST['username']) && isset($_POST['password']) && in_array('login', hybulaTurnstileLocations)) ||
+            ($pageFile == 'register' && in_array('register', hybulaTurnstileLocations)) ||
+            ($pageFile == 'contact' && in_array('contact', hybulaTurnstileLocations)) ||
+            ($pageFile == 'ticket' && in_array('ticket', hybulaTurnstileLocations)) ||
+            ($pageFile == 'cart' && $_GET['a'] == 'checkout' && in_array('checkout', hybulaTurnstileLocations))) && hybulaTurnstileEnabled) {
         if (!isset($_POST['cf-turnstile-response'])) {
             die('Missing captcha response in POST data!');
         }
@@ -57,14 +57,24 @@ if ((($_SERVER['SCRIPT_NAME'] == '/index.php' && $_GET['rp'] == '/login' && in_a
             }
         }
     }
-
-    add_hook('ClientAreaFooterOutput', 1, function ($vars) {
-        return '<script>
-	var turnstileDiv = document.createElement("div");
-	turnstileDiv.innerHTML = \'<div class="cf-turnstile" data-sitekey="'.hybulaTurnstileSite.'" data-callback="javascriptCallback" data-theme="'.hybulaTurnstileTheme.'"></div>'.(hybulaTurnstileCredits ? '<a href="https://github.com/hybula/whmcs-turnstile" target="_blank"><small class="text-muted text-uppercase">Captcha integration by Hybula</small></a>' : '<!-- Captcha integration by Hybula (https://github.com/hybula/whmcs-turnstile) -->').'<br><br>\';
-	var form = document.querySelector(\'input[type=submit],#login,div.text-center > button[type=submit],#openTicketSubmit\').parentNode;
-	form.insertBefore(turnstileDiv, document.querySelector(\'input[type=submit],#login,div.text-center > button[type=submit],#openTicketSubmit\'));
-	</script>
-	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>';
-    });
 }
+
+add_hook('ClientAreaFooterOutput', 1, function ($vars) {
+    if (!hybulaTurnstileEnabled) {
+        return '';
+    }
+    $pageFile = basename($_SERVER['SCRIPT_NAME'], '.php');
+    if ((in_array('login', hybulaTurnstileLocations) && $vars['pagetitle'] == $vars['LANG']['login']) ||
+        (in_array('register', hybulaTurnstileLocations) && $pageFile == 'register') ||
+        (in_array('contact', hybulaTurnstileLocations) && $pageFile == 'contact') ||
+        (in_array('ticket', hybulaTurnstileLocations) && $pageFile == 'submitticket') ||
+        (in_array('checkout', hybulaTurnstileLocations) && $pageFile == 'cart' && $_GET['a'] == 'checkout')) {
+        return '<script>
+        var turnstileDiv = document.createElement("div");
+        turnstileDiv.innerHTML = \'<div class="cf-turnstile" data-sitekey="'.hybulaTurnstileSite.'" data-callback="javascriptCallback" data-theme="'.hybulaTurnstileTheme.'"></div>'.(hybulaTurnstileCredits ? '<a href="https://github.com/hybula/whmcs-turnstile" target="_blank"><small class="text-muted text-uppercase">Captcha integration by Hybula</small></a>' : '<!-- Captcha integration by Hybula (https://github.com/hybula/whmcs-turnstile) -->').'<br><br>\';
+        var form = document.querySelector(\'input[type=submit],#login,div.text-center > button[type=submit],#openTicketSubmit\').parentNode;
+        form.insertBefore(turnstileDiv, document.querySelector(\'input[type=submit],#login,div.text-center > button[type=submit],#openTicketSubmit\'));
+        </script>
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>';
+    }
+});
