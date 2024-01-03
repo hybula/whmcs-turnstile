@@ -28,6 +28,7 @@ if (!empty($_POST)) {
             ($pageFile == 'ticket' && in_array('ticket', hybulaTurnstileLocations)) ||
             ($pageFile == 'cart' && $_GET['a'] == 'checkout' && in_array('checkout', hybulaTurnstileLocations))) && hybulaTurnstileEnabled) {
         if (!isset($_POST['cf-turnstile-response'])) {
+            unset($_SESSION['uid']);
             die('Missing captcha response in POST data!');
         }
 
@@ -53,6 +54,7 @@ if (!empty($_POST)) {
         curl_close($curl);
         if ($json = json_decode($result)) {
             if (!$json->success) {
+                unset($_SESSION['uid']);
                 die(hybulaTurnstileError);
             }
         }
