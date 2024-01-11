@@ -25,7 +25,7 @@ if (!empty($_POST)) {
     if ((($pageFile == 'index' && isset($_POST['username']) && isset($_POST['password']) && in_array('login', hybulaTurnstileLocations)) ||
             ($pageFile == 'register' && in_array('register', hybulaTurnstileLocations)) ||
             ($pageFile == 'contact' && in_array('contact', hybulaTurnstileLocations)) ||
-            ($pageFile == 'ticket' && in_array('ticket', hybulaTurnstileLocations)) ||
+            ($pageFile == 'submitticket' && in_array('ticket', hybulaTurnstileLocations)) ||
             ($pageFile == 'cart' && $_GET['a'] == 'checkout' && in_array('checkout', hybulaTurnstileLocations))) && hybulaTurnstileEnabled) {
         if (!isset($_POST['cf-turnstile-response'])) {
             unset($_SESSION['uid']);
