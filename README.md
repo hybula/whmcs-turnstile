@@ -20,10 +20,11 @@ Please note that this implementation required some filthy JS query code to make 
 - Enables Turnstile captcha on login, register, checkout, ticket, contact pages.
 - Support for themes (auto/dark/light).
 - Ability to disable credits and have it fully white labeled.
+- Ability to exclude captcha when client is logged in.
 
 ### Requirements
-- PHP 8.x (tested on 8.1.23)
-- WHMCS 8.x (tested on 8.7.3)
+- PHP 8.x (tested on 8.1.27)
+- WHMCS 8.x (tested on 8.9.0)
 
 ### Installation
 1. Download the latest release and unzip it in the root of your WHMCS installation.
@@ -32,6 +33,7 @@ Please note that this implementation required some filthy JS query code to make 
 ```php
 const hybulaTurnstileEnabled = true;
 const hybulaTurnstileCredits = true;
+const hybulaTurnstileExcludeLogin = true;
 const hybulaTurnstileSite = '';
 const hybulaTurnstileSecret = '';
 const hybulaTurnstileTheme = 'auto';

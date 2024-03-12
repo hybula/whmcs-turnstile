@@ -20,7 +20,7 @@ if (!defined('WHMCS')) {
     die('This file cannot be accessed directly!');
 }
 
-if (!empty($_POST)) {
+if (!empty($_POST) && (!isset($_SESSION['uid']) && hybulaTurnstileExcludeLogin)) {
     $pageFile = basename($_SERVER['SCRIPT_NAME'], '.php');
     if ((($pageFile == 'index' && isset($_POST['username']) && isset($_POST['password']) && in_array('login', hybulaTurnstileLocations)) ||
             ($pageFile == 'register' && in_array('register', hybulaTurnstileLocations)) ||
@@ -62,7 +62,7 @@ if (!empty($_POST)) {
 }
 
 add_hook('ClientAreaFooterOutput', 1, function ($vars) {
-    if (!hybulaTurnstileEnabled) {
+    if (!hybulaTurnstileEnabled || (isset($_SESSION['uid']) && hybulaTurnstileExcludeLogin)) {
         return '';
     }
     $pageFile = basename($_SERVER['SCRIPT_NAME'], '.php');
