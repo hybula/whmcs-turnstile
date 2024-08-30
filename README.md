@@ -27,9 +27,9 @@ Please note that this implementation required some filthy JS query code to make 
 - WHMCS 8.x (tested on 8.9.0)
 
 ### Installation
-1. Download the latest release and unzip it in the root of your WHMCS installation.
+1. Download the latest release and unzip it in the root of your WHMCS installation, make sure the hook file is placed in `includes/hooks`.
 2. Get your Turnstile Site Key and Secret Key from your Cloudflare dashboard.
-3. Edit and add the following settings in either your `configuration.php` or at the top of the hook file:
+3. Edit and add the following settings in your `configuration.php`:
 ```php
 const hybulaTurnstileEnabled = true;
 const hybulaTurnstileCredits = true;
