@@ -38,7 +38,7 @@ const hybulaTurnstileSite = '';
 const hybulaTurnstileSecret = '';
 const hybulaTurnstileTheme = 'auto';
 const hybulaTurnstileError = 'Something went wrong with your captcha challenge!';
-const hybulaTurnstileLocations = ['login', 'register', 'checkout', 'ticket', 'contact'];
+const hybulaTurnstileLocations = ['login', 'register', 'checkout', 'ticket', 'contact', 'reset'];
 ```
 
 Final notes: Due to some limitations, the captcha will **NOT** be shown when there is an active admin session. If you want to test it, open up your WHMCS in a private window.
