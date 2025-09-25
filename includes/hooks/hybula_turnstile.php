@@ -30,7 +30,7 @@ if (! isset($_SESSION['adminid'])) {
                 ($pageFile == 'contact' && in_array('contact', hybulaTurnstileLocations)) ||
                 ($pageFile == 'submitticket' && isset($_POST['subject']) && in_array('ticket', hybulaTurnstileLocations)) ||
                 ($pageFile == 'cart' && $_GET['a'] == 'checkout' && in_array('checkout', hybulaTurnstileLocations)) ||
-                ($pageFile == 'index' && isset($_POST['email']) && in_array('reset', hybulaCapLocations))
+                ($pageFile == 'index' && isset($_POST['email']) && in_array('reset', hybulaTurnstileLocations))
             )
         ) {
             if (! isset($_POST['cf-turnstile-response'])) {
@@ -78,7 +78,7 @@ if (! isset($_SESSION['adminid'])) {
             (in_array('contact', hybulaTurnstileLocations) && $pageFile == 'contact') ||
             (in_array('ticket', hybulaTurnstileLocations) && $pageFile == 'submitticket') ||
             (in_array('checkout', hybulaTurnstileLocations) && $pageFile == 'cart' && $_GET['a'] == 'checkout') ||
-            (in_array('reset', hybulaCapLocations) && $vars['pagetitle'] == $vars['LANG']['pwreset'])
+            (in_array('reset', hybulaTurnstileLocations) && $vars['pagetitle'] == $vars['LANG']['pwreset'])
         ) {
             return '<script>
         var turnstileDiv = document.createElement("div");
