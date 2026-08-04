@@ -21,9 +21,11 @@ if (! defined('WHMCS')) {
 }
 
 if (! isset($_SESSION['adminid'])) {
+    $hybulaIsInvite = (strpos($_SERVER['REQUEST_URI'] ?? '', '/invite/') !== false)
+        || (strpos($_SERVER['HTTP_REFERER'] ?? '', '/invite/') !== false);
     if (! empty($_POST) && (! isset($_SESSION['uid']) && hybulaTurnstileExcludeLogin)) {
         $pageFile = basename($_SERVER['SCRIPT_NAME'], '.php');
-        if (hybulaTurnstileEnabled &&
+        if (hybulaTurnstileEnabled && ! $hybulaIsInvite &&
             (
                 ($pageFile == 'index' && isset($_POST['username']) && isset($_POST['password']) && in_array('login', hybulaTurnstileLocations)) ||
                 ($pageFile == 'register' && in_array('register', hybulaTurnstileLocations)) ||
