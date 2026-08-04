@@ -31,14 +31,14 @@ Please note that this implementation required some filthy JS query code to make 
 2. Get your Turnstile Site Key and Secret Key from your Cloudflare dashboard.
 3. Edit and add the following settings in your `configuration.php`:
 ```php
-const hybulaTurnstileEnabled = true;
-const hybulaTurnstileCredits = true;
-const hybulaTurnstileExcludeLogin = true;
-const hybulaTurnstileSite = '';
-const hybulaTurnstileSecret = '';
-const hybulaTurnstileTheme = 'auto';
-const hybulaTurnstileError = 'Something went wrong with your captcha challenge!';
-const hybulaTurnstileLocations = ['login', 'register', 'checkout', 'ticket', 'contact', 'reset'];
+defined('hybulaTurnstileEnabled') || define('hybulaTurnstileEnabled', true);
+defined('hybulaTurnstileCredits') || define('hybulaTurnstileCredits', true);
+defined('hybulaTurnstileExcludeLogin') || define('hybulaTurnstileExcludeLogin', true);
+defined('hybulaTurnstileSite') || define('hybulaTurnstileSite', '');
+defined('hybulaTurnstileSecret') || define('hybulaTurnstileSecret', '');
+defined('hybulaTurnstileTheme') || define('hybulaTurnstileTheme', 'auto');
+defined('hybulaTurnstileError') || define('hybulaTurnstileError', 'Something went wrong with your captcha challenge!');
+defined('hybulaTurnstileLocations') || define('hybulaTurnstileLocations', ['login', 'register', 'checkout', 'ticket', 'contact', 'reset']);
 ```
 
 Final notes: Due to some limitations, the captcha will **NOT** be shown when there is an active admin session. If you want to test it, open up your WHMCS in a private window.
